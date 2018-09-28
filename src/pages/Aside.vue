@@ -1,5 +1,5 @@
 <template>
-  <aside id="side-nav" class="col-md-3">
+  <aside id="side-nav" class="column">
     <div class="row">          
      ASIDE
     </div>
@@ -8,7 +8,7 @@
 <script>
   import MainLayout from '../layouts/Main.vue'
   export default {
-    name: 'aside',
+    name: 'global-aside',
     components: {
       MainLayout      
     },

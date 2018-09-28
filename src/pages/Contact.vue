@@ -28,15 +28,11 @@
 <div class="field column">
   <label class="label">Email</label>
   <div class="control has-icons-left has-icons-right">
-    <input class="input is-danger" type="email" placeholder="Email address" v-model="email" required>
+    <input class="input" type="email" placeholder="Email address" v-model="email" required>
     <span class="icon is-small is-left">
       <i class="fas fa-envelope"></i>
     </span>
-    <span class="icon is-small is-right">
-      <i class="fas fa-exclamation-triangle"></i>
-    </span>
   </div>
-  <p class="help is-danger">This email is invalid</p>
 </div>
 
 </div>
@@ -60,6 +56,7 @@
 <script>
 import VueFirestore from 'vue-firestore'
 import firebase from 'firebase'
+  import { firestore } from '../main'
 
 export default {
 	name: 'contact',
@@ -72,19 +69,22 @@ export default {
     }
     
   },
-	firestore() {
-    return {
-        requests: firebase.firestore().collection('requests')
-    }
-  },
 	methods: {
   	addRequest: function() {
-        this.$firestore.requests.add({
-            firstname: this.firstname,
-            lastname: this.lastname,
-            email: this.email,
-            msg: this.msg
-        })
+      var self = this;
+      firestore.collection("requests").add({
+        firstname: self.firstname,
+        lastname: self.lastname,
+        email: self.email,
+        msg: self.msg,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(function(docRef) {
+        alert('Your request has been sent.');
+      })
+      .catch(function(error) {
+      console.error("Error adding document: ", error);
+      });
     }
   }
 }

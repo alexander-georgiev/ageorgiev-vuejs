@@ -1,19 +1,17 @@
 <template>
   <section id="testimonials" class="container">
 
-  <h2>Testimonials</h2>
-  <div class="row">
-
-<div class="col-sm-6 " v-for="(testimonial, index) in testimonials">
+  <h1 class="title">Testimonials</h1>
+  <div class="columns">
+<div class="column is-one-third " v-for="(testimonial, index) in testimonials">
   <div class="post card">
    <img class="card-img-top" alt="Card image cap">
 <div class="card-body">
 
- <h3 class="card-title"> {{ testimonial.title }}</h3>
+ <h3 class="card-title">     <router-link :to="{ name: 'SingleTestimonial', params: { id: testimonial.title }}" class="btn btn-primary">{{ testimonial.title }}</router-link></h3>
     <p class="card-text">{{ testimonial.excerpt }}</p>
 
     </div>
-    <router-link :to="{ name: 'SingleTestimonial', params: { id: testimonial.title }}" class="btn btn-primary">Read</router-link>
 </div>
 
     </div>
@@ -25,7 +23,7 @@
 
 <script>
  import MainLayout from '../layouts/Main.vue'
- import VueFirestore from 'vue-firestore'
+ import { firestore } from '../main'
 import firebase from 'firebase'
 
 export default {
@@ -33,6 +31,7 @@ export default {
   data () {
     return {
       loading: false,
+      testimonials: [],
       error: null,
     }
     
@@ -48,11 +47,19 @@ export default {
   },
   methods: {
     fetchData () {
+       this.error = null
       this.loading = true
-      this.$binding("testimonials", firebase.firestore().collection("testimonials"))
-      .then((testimonials) => {
+      var selff = this;
+      firestore.collection("testimonials").get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            selff.testimonials.push(doc.data());         
+        });
         this.loading = false
-    })
+      })
+      .catch(function(error) {
+          selff.error = error;
+      });
     }
   }
 

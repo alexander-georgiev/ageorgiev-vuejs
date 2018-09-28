@@ -1,8 +1,8 @@
 <template>
   <section id="blog">
     <div class="container">
-        <div class="row">
-          <div class="col-md-9">
+        <div class="columns">
+          <div class="column  is-two-thirds">
              <router-view></router-view>
           </div>
           <router-view name="sidebar"></router-view>
