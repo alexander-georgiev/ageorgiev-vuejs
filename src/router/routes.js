@@ -66,7 +66,10 @@ export const routes = [
     }, {
         name: 'Profile',
         path: '/dashboard',
-        component: Dashboard,
+        components: {
+           default: Dashboard,
+           userMenu: UserMenu,
+        },
         children: [
         {
             path: '/dashboard/profile',

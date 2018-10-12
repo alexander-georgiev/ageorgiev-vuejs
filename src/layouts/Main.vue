@@ -43,7 +43,9 @@
               <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                 <div class="dropdown-content">
                   <div class="dropdown-item">
-                    <router-link v-if="user" to="/profile" class="navbar-item">Profile</router-link>
+                    <router-link v-if="user" to="/dashboard" class="navbar-item">Dashboard</router-link>
+                    <router-link v-if="user" to="/dashboard/profile" class="navbar-item">Profile</router-link>
+                    <router-link v-if="user" to="/dashboard/posts" class="navbar-item">Posts</router-link>
                     <button v-if="user" class="navbar-item button is-primary is-fullwidth" v-on:click="logout">Logout</button>             
                   </div>
                 </div>

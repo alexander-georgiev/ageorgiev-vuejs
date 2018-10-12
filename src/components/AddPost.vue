@@ -13,26 +13,34 @@
 </template>
 
 <script>
-import VueFirestore from 'vue-firestore'
+  import { firestore } from '../main'
 import firebase from 'firebase'
 export default {
   name: 'AddPost',
-  firestore() { 
+  data() {
     return {
-        articles: firebase.firestore().collection('articles')
+      loading: false,
+      title: '',
+      excerpt: '',
     }
   },
   created() {     
-    this.fetchData()
+
   },
   methods: {
-      addPost: function() {     
-        this.$firestore.articles.doc(this.title).set({
-            title: this.title,
-            excerpt: this.excerpt
-        }).then(function() {
-            alert("Article successfully written!");
-        });;
+    addPost: function() {  
+      var selff = this;   
+      firestore.collection("articles").add({
+          title: selff.title,
+          excerpt: selff.excerpt,
+      })
+      .then(function() {
+          alert('Success');
+          selff.$router.push('/dashboard/post/'+selff.title);
+      })
+      .catch(function(error) {
+          console.error("Error writing document: ", error);
+      });
     } 
   }
 }

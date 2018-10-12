@@ -2,7 +2,7 @@
   <div>
     <h1 class="title">Blog Posts</h1> <router-link :to="{ name: 'AddPost' }" class="button is-primary">Add new</router-link>
     <ul class="">
-      <li class="post card" v-for="(article, key, index) in articles">
+      <li class="post card m-b-md" v-for="(article, key, index) in articles">
           <header class="card-header">
             <p class="card-header-title">
               {{ article.title }}
