@@ -1,5 +1,8 @@
 $primary: #3367d6;
+$red: red;
 $blue: #3367d6;
+$black: #212120;
+$grey: hsla(0, 0%, 100%, 0.5);
 $link-active: $primary;
 $family-serif: "Dosis", sans-serif;
 $family-primary: $family-serif;
@@ -41,12 +44,98 @@ $positions: ("t", "top"), ("r", "right"), ("b", "bottom"), ("l", "left");
     }
 }
 
+@mixin box-shadow($top, $left, $blur, $color, $second_color) {
+    -webkit-box-shadow: $top $left $blur $color, $second_color;
+    -moz-box-shadow: $top $left $blur $color, $second_color;
+    box-shadow: $top $left $blur $color, $second_color;
+}
+
+.dashboard-wrapper {
+    margin-bottom: 0 !important;
+}
+
+#sidebar {
+    display: block;
+    z-index: 1030;
+
+    @include box-shadow(0, 2px, 22px, rgba(0, 0, 0, 0.2), 0 2px 30px 0 rgba(0, 0, 0, 0.35));
+
+    // box-shadow: 0 2px 22px 0 rgba(0, 0, 0, 0.2), 0 2px 30px 0 rgba(0, 0, 0, 0.35);
+    background-color: $black;
+    color: #fff;
+    text-align: center;
+    height: 100vh;
+    max-height: 100%;
+    width: 240px;
+    transition: .3s all ease-in;
+
+    .menu-label {
+        color: #f9f9f9;
+        background: #333;
+        padding: .5rem 0;
+    }
+
+    a {
+        color: $grey;
+    }
+
+    .user-area {
+        border-top: 1px solid $grey;
+        border-bottom: 1px solid $grey;
+        padding: 1rem 0;
+    }
+
+    .menu-list {
+        li {
+            display: flex;
+            align-items: center;
+            padding-left: 1rem;
+
+            // justify-content: center;
+       
+        }
+
+        a {
+            &.is-active, &:hover {
+                background-color: transparent;
+                color: #fff;
+            }
+        }
+    }
+
+    &:hover {
+        width: 80px;
+
+        .menu-label {
+            display: none;
+        }
+
+        .menu-list {
+            li {
+                justify-content: center;
+                margin-bottom: 1rem;
+                padding-left: 0;
+            }
+
+            a {
+                display: none;
+            }
+        }
+    }
+}
+
 .bd-lead, .bd-side {
     padding: 1.5rem;
 }
 
 a.navbar-item.is-active, a.navbar-link.is-active {
     color: $primary;
+}
+
+#footer {
+    background: #222;
+    padding: 2rem 0;
+    color: #fff;
 }
 
 @import url("https://fonts.googleapis.com/css?family=Dosis");

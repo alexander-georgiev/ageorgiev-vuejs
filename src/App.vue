@@ -1,28 +1,16 @@
 <template>
   <main id="app">    
+    <div v-if="$route.meta.requiresAuth !== true">
       <nav-main></nav-main>
-      <router-view></router-view>
-      <div v-if="$route.name == 'home'" class="bd-lead">
-        <div class="container">          
-          <router-view name="blog"></router-view>
-          <router-view name="contact"></router-view>
-        </div>
-      </div>
-
-<!--   <div v-if="$route.name === 'blog'">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-9">
-          <router-view class="view" name="listingblog"></router-view>
-      </div>
-        <div class="col-md-3">
-          <router-view class="view" name="sidebar"></router-view>
-        </div>
+    </div>
+    <router-view></router-view>
+    <div v-if="$route.name == 'home'" class="bd-lead">
+      <div class="container">          
+        <router-view name="blog"></router-view>
+        <router-view name="contact"></router-view>
       </div>
     </div>
-  </div> -->
-      <footer-main></footer-main>
-      
+    <footer-main></footer-main>      
   </main>
 </template>
 

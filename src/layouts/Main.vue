@@ -96,5 +96,5 @@
 #header {border-bottom: 1px solid #eee;
 .dropdown button {border: 0;}
 }
-#footer {background: #222; padding: 2rem 0; color: #fff;}
+
 </style>

@@ -1,14 +1,29 @@
 <template>
-<section class="container section">
-	<h1 class="title">Dashboard</h1>
-	<div class="columns">        
-        <div class="column is-one-third">
-          <router-view name="userMenu"></router-view>
-        </div>
+	<div class="columns dashboard-wrapper">        
+        <aside class="column is-one-fifth closedd" id="sidebar">
+        	<div class="logo p-t-md p-b-md">
+        		<router-link to="/"><i class="fab fa-2x fa-autoprefixer"></i></router-link>
+        	</div>          
+          <UserSettingsNav/>
+        </aside>
         
-        <div class="column">
+        <section class="column main-content">
            <router-view></router-view>
-        </div>
+        </section>
     </div>
-</section>
+
 </template>
+<script>
+import UserSettingsNav from '../components/UserMenu'
+export default {
+  name: 'Dashboard',
+  components: { UserSettingsNav },
+  data () {
+    return {
+         user: {},
+         name: '',
+         selectedFile: null
+    }
+  },
+}
+</script>

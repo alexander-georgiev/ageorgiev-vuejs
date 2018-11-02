@@ -23,7 +23,6 @@
 </template>
 
 <script>
-  import VueFirestore from 'vue-firestore'
 import firebase from 'firebase'
 export default {
   name: 'signup',

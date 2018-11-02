@@ -16,7 +16,6 @@
     "node-sass": "^4.9.3",
     "sass-loader": "^6.0.6",
     "vue": "^2.5.17",
-    "vue-firestore": "^0.2.3",
     "vue-meta": "^1.5.3",
     "vue-router": "^3.0.1",
     "vuefire": "^1.4.5",

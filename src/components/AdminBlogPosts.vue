@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-bind:class="{ name }">
     <h1 class="title">Blog Posts</h1> <router-link :to="{ name: 'AddPost' }" class="button is-primary">Add new</router-link>
     <ul class="">
       <li class="post card m-b-md" v-for="(article, key, index) in articles">
@@ -36,6 +36,7 @@ export default {
       loading: false,
       articles: [],
       error: null,
+      name: 'test',
     }
     
   },

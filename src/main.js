@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueFire from 'vuefire'
-import VueFirestore from 'vue-firestore'
 import Vuex from 'vuex'
 import firebase from 'firebase'
 import VueRouter from 'vue-router'
@@ -11,7 +10,7 @@ import App from './App.vue'
 Vue.use(Vuex)
 require('firebase/firestore')
 require('./assets/sass/main.scss');
-Vue.use(VueFirestore)
+
 var firebaseApp = firebase.initializeApp({
     apiKey: "AIzaSyDNJpjt9_IaI-FKEpuW3pVWxo_6V6XTSWM",
     authDomain: "personal-website-156914.firebaseapp.com",

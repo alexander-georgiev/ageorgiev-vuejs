@@ -64,8 +64,8 @@ export const routes = [
         path: '/signup',
         component: SignUp
     }, {
-        name: 'Profile',
-        path: '/dashboard',
+        name: 'Dashboard',
+        path: '/dashboard/',
         components: {
            default: Dashboard,
            userMenu: UserMenu,
@@ -76,6 +76,9 @@ export const routes = [
              components: {
                 default: Profile,
                 userMenu: UserMenu
+            },
+            meta: {
+                requiresAuth: true
             }        
         },
         {
@@ -83,6 +86,9 @@ export const routes = [
             components: {
                 userMenu: UserMenu,
                 default: AdminBlogPosts,
+            },
+            meta: {
+                requiresAuth: true
             }
         },
         {
@@ -91,6 +97,9 @@ export const routes = [
             components: {
                 userMenu: UserMenu,
                 default: AddPost,
+            },
+            meta: {
+                requiresAuth: true
             }
         },
           {
@@ -99,6 +108,9 @@ export const routes = [
             components: {
                 userMenu: UserMenu,
                 default: EditPost,
+            },
+            meta: {
+            requiresAuth: true
             }
         },
         ],

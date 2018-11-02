@@ -1,6 +1,7 @@
 <template>
   <section id="profile" class="section">
     <div class="">
+      
       <h1 class="title">Edit Profile</h1>
       <div class="columns">
         
@@ -82,12 +83,10 @@
   }
 </style>
 <script>
-
 import firebase from 'firebase'
-
-
 export default {
   name: 'profile',
+  props: ['slug'],
   data () {
     return {
          user: {},
