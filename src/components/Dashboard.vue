@@ -8,6 +8,11 @@
         </aside>
         
         <section class="column main-content">
+          <div v-if="$route.name == 'Dashboard'" class="section">
+            <h1 class="title">Dashboard</h1>
+            Welcome to your dashboard!
+          </div>
+
            <router-view></router-view>
         </section>
     </div>

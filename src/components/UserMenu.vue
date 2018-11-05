@@ -4,7 +4,7 @@
       <router-link to="/dashboard/profile/">Hi, Alex</router-link>
     </div>    
     <ul class="menu-list">
-      <li><i class="fas fa-home"></i> <router-link to="/dashboard/">Dashboard</router-link></li>
+      <li class="m-t-md"><i class="fas fa-home"></i> <router-link to="/dashboard/">Dashboard</router-link></li>
     </ul>
     <p class="menu-label">
       Content
