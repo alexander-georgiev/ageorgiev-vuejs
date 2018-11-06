@@ -1,11 +1,8 @@
 <template>
   <section id="articles" class="section">
-    <div class="row">
-          <div class="loading fa-3x" v-if="loading">
-            <i class="fas fa-spinner fa-spin"></i>
-          </div>
-<h1 class="title">Blog</h1>
-<div class="post card" v-for="(article, key, index) in articles" v-bind:class="[colorNav === true ? 'asd' : 'ddd']">
+    <div class="row">          
+      <h1 class="title">Blog</h1>
+      <div class="post card" v-for="(article, key, index) in articles">
    <div class="card-image">
     <figure class="image">
       
@@ -43,7 +40,6 @@ export default {
   name: 'listingblog',
   data () {
     return {
-      loading: false,
       articles: [],
       error: null,
       colorNav: false,
@@ -58,14 +54,6 @@ export default {
   watch: {
     // call again the method if the route changes
     '$route': 'fetchData',
-    '$route' () {
-      if (this.$route.name == 'listingblog') {
-        this. colorNav = true
-      }
-      else {
-        this. colorNav = false
-      }  
-    }
   },
   methods: {
     fetchData () {
@@ -75,7 +63,6 @@ export default {
       firestore.collection("articles").get()
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-          console.log(selff);
             selff.articles.push(doc.data());         
         });
         this.loading = false
@@ -88,25 +75,3 @@ export default {
 
 }
 </script>
-<style>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-.loading {
-    position: absolute;
-    top: 0;
-    right: 0;
-    -webkit-transition: .3s all ease;
-    transition: .3s all ease;
-    left: 0;
-    bottom: 0;
-    text-align: center;
-}
-.loading > svg {
-      position: relative;
-    top: 50%;
-}
-</style>

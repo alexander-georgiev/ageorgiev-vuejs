@@ -1,8 +1,8 @@
 <template>
-  <main id="app">    
-    <div v-if="$route.meta.requiresAuth !== true">
-      <nav-main></nav-main>
-    </div>
+
+  <main id="app">
+    <loading v-if="this.$root.loading"></loading>
+    <nav-main v-if="$route.meta.requiresAuth !== true"></nav-main>  
     <router-view></router-view>
     <div v-if="$route.name == 'home'" class="bd-lead">
       <div class="container">          
@@ -17,11 +17,13 @@
 <script>
 import MainLayout from './layouts/Main.vue';
 import Footer from './layouts/Footer.vue';
+import Loading from './components/Loading.vue';
 export default {
   components: {
     navMain: MainLayout,
     footerMain: Footer,
-  },
+    loading: Loading,
+  },   
   metaInfo: {
     title: 'Front-end Developer', // set a title
     htmlAttrs: {
@@ -73,6 +75,7 @@ export default {
     // this uses Vuex to check if a user is signed in
     // check out mutations in the store.js file
     this.setUser();
+    // console.log(this.$root.loading)
   }
 };
 </script>

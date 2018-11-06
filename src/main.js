@@ -59,6 +59,7 @@ export const store = new Vuex.Store({
     }
 });
 router.beforeEach((to, from, next) => {
+    app.loading = true;
     let currentUser = firebase.auth().currentUser;
     let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     if (requiresAuth && !currentUser) {
@@ -69,11 +70,31 @@ router.beforeEach((to, from, next) => {
         next();
     }
 })
+
+router.afterEach((to, from) => {
+  // Complete the animation of the route progress bar.
+  setTimeout(() => app.loading = false, 1000);
+  
+})
+
 firebase.auth().onAuthStateChanged(function (user) {
-  new Vue({
+    app =  new Vue({
     el: '#app',
     store,
     router: router,
+    data: { loading: false},
     render: h => h(App)
   });
 });
+
+// const app = new Vue({
+//     store,
+//     router: router,
+//     data: { loading: false, test: 'asd' },
+//     created() {
+//         firebase.auth().onAuthStateChanged(function(user) {
+//             this.user = user;
+//         });
+//     },
+//     render: h => h(App)
+//   }).$mount('#app')

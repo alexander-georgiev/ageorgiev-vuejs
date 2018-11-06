@@ -2,7 +2,7 @@
 <section id="contact" class="section">
 	<div class="container">
 	<h1 class="title">Contact</h1>
-	<p class="subtitle">Get in Touch with me. You will receive a reply within 24 hours.</p>
+	<p class="subtitle">Get in touch with me. You will receive a reply within 24 hours.</p>
 	<form id="contact-form" class="" v-on:submit.prevent="addRequest">
 <div class="columns">
 	<div class="field column">
@@ -40,7 +40,7 @@
 <div class="field">
   <label class="label">Message</label>
   <div class="control">
-    <textarea class="textarea" placeholder="Please, be specific as possible. No limitations." v-model="msg" required></textarea>
+    <textarea class="textarea" placeholder="Please, be specific as much as possible." v-model="msg" required></textarea>
   </div>
 </div>
 <div class="field is-grouped">
@@ -70,7 +70,7 @@ export default {
   },
 	methods: {
   	addRequest: function() {
-      var self = this;
+      var self = this;   
       firestore.collection("requests").add({
         firstname: self.firstname,
         lastname: self.lastname,
@@ -78,11 +78,11 @@ export default {
         msg: self.msg,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       })
-      .then(function(docRef) {
-        alert('Your request has been sent.');
+      .then(function() {
+          alert('Your message has been sent. You will receive a reply within 24 hours via e-mail.');
       })
       .catch(function(error) {
-      console.error("Error adding document: ", error);
+          console.error("Error writing document: ", error);
       });
     }
   }
