@@ -1,6 +1,16 @@
 <template>
-  <div v-bind:class="{ name }">
-    <h1 class="title">Blog Posts</h1> <router-link :to="{ name: 'AddPost' }" class="button is-primary">Add new</router-link>
+  <div class="section">
+    <header class="level bd-structure-item bd-is-structure-container" title="level">
+    <div class="level-left bd-structure-item" title="level-left">
+      <div class="level-item">
+       <h1 class="title">Blog Posts</h1>
+      </div>
+      
+    </div>
+    <div class="level-right bd-structure-item" title="level-right">
+      <router-link :to="{ name: 'AddPost' }" class="button is-primary">Add new</router-link>
+    </div>
+  </header>     
     <ul class="">
       <li class="post card m-b-md" v-for="(article, key, index) in articles">
           <header class="card-header">

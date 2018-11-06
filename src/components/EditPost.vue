@@ -1,22 +1,32 @@
 <template>
-  <div>
+  <section class="section">
     <ul class="reptileList">
       <li v-for="article in articles">
         <h1 class="title">Edit Post - {{article.title}}</h1> 
-        <p>{{article.excerpt}}</p>
         ID: {{article.id}}
          <form id="edit-post" class="" v-on:submit.prevent="editPost">
-      <input class="input" type="text" placeholder="Title" v-model="article.title" required>
-      <textarea class="input" type="text" placeholder="Excerpt" v-model="article.excerpt" required></textarea>
+      <div class="field">
+        <label class="label">Title</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Title" v-model="article.title" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Content</label>
+        <div class="control">
+          <textarea class="textarea" placeholder="Textarea" v-model="article.excerpt" required></textarea>
+        </div>
+      </div>
       <div class="field is-grouped">
   <div class="control">
-    <button class="button is-primary is-rounded" @click="editPost(article)">Edit</button>
+    <button class="button is-primary is-rounded" @click="editPost(article)">Update</button>
+    <button class="button is-danger is-rounded" @click="deletePost(article)">Delete</button>
   </div>
 </div>
     </form>
       </li>
     </ul>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -54,6 +64,14 @@
         console.error("Error updating document: ", error);
     });
 
+    },
+    deletePost: function(article) {          
+      var jobskill_query = firestore.collection('articles').where('title','==', article.title);
+      jobskill_query.get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          doc.ref.delete();
+      });
+    });
     },
     fetchData () {
       this.error = null

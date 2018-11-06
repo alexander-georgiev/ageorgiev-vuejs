@@ -3,6 +3,7 @@ $red: red;
 $blue: #3367d6;
 $black: #212120;
 $grey: hsla(0, 0%, 100%, 0.5);
+$clouds: #ECE9E6;
 $link-active: $primary;
 $family-serif: "Dosis", sans-serif;
 $family-primary: $family-serif;
@@ -93,6 +94,10 @@ $positions: ("t", "top"), ("r", "right"), ("b", "bottom"), ("l", "left");
 
 .dashboard-wrapper {
     margin-bottom: 0 !important;
+
+    .main-content {
+        background: $clouds;
+    }
 }
 
 #sidebar {
@@ -107,8 +112,24 @@ $positions: ("t", "top"), ("r", "right"), ("b", "bottom"), ("l", "left");
     text-align: center;
     height: 100vh;
     max-height: 100%;
-    width: 240px;
     transition: .3s all ease-in;
+    width: 80px;
+
+    .menu-label {
+        display: none;
+    }
+
+    .menu-list {
+        li {
+            justify-content: center;
+            margin-bottom: 1rem;
+            padding-left: 0;
+        }
+
+        a {
+            display: none;
+        }
+    }
 
     .menu-label {
         color: #f9f9f9;
@@ -126,40 +147,28 @@ $positions: ("t", "top"), ("r", "right"), ("b", "bottom"), ("l", "left");
         padding: 1rem 0;
     }
 
-    .menu-list {
-        li {
-            display: flex;
-            align-items: center;
-            padding-left: 1rem;
-
-            // justify-content: center;
-       
-        }
-
-        a {
-            &.is-active, &:hover {
-                background-color: transparent;
-                color: #fff;
-            }
-        }
-    }
-
     &:hover {
-        width: 80px;
+        width: 240px;
 
         .menu-label {
-            display: none;
+            display: block;
         }
 
         .menu-list {
             li {
-                justify-content: center;
-                margin-bottom: 1rem;
-                padding-left: 0;
+                display: flex;
+                align-items: center;
+                padding-left: 1rem;
+                justify-content: start;
             }
 
             a {
-                display: none;
+                display: block;
+
+                &.is-active, &:hover {
+                    background-color: transparent;
+                    color: #fff;
+                }
             }
         }
     }
