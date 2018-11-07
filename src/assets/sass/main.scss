@@ -92,6 +92,12 @@ $positions: ("t", "top"), ("r", "right"), ("b", "bottom"), ("l", "left");
     }
 }
 
+svg#logo {
+    .cls-1 {
+        fill: #fff;
+    }
+}
+
 .dashboard-wrapper {
     margin-bottom: 0 !important;
 
@@ -114,6 +120,11 @@ $positions: ("t", "top"), ("r", "right"), ("b", "bottom"), ("l", "left");
     max-height: 100%;
     transition: .3s all ease-in;
     width: 80px;
+
+    #logo {
+        width: 60px;
+        transition: .3s all ease-in;
+    }
 
     .menu-label {
         display: none;
@@ -149,6 +160,10 @@ $positions: ("t", "top"), ("r", "right"), ("b", "bottom"), ("l", "left");
 
     &:hover {
         width: 240px;
+
+        #logo {
+            width: 100px;
+        }
 
         .menu-label {
             display: block;

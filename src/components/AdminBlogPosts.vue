@@ -19,7 +19,7 @@
             </p>
             <a href="#" class="card-header-icon" aria-label="more options">
               <router-link :to="{ name: 'EditPost', params: { id: article.title }}" class="button is-primary m-r-md">Edit</router-link> 
-             <button class="button is-danger" @click="deletePost(article)">Delete</button>
+             <button class="button is-danger" @click="deletePost(article, 'articles')">Delete</button>
             </a>
           </header>
             <div class="card-content">
@@ -37,8 +37,8 @@
 </template>
 
 <script>
-  import firebase from 'firebase'
-  import { firestore } from '../main'
+import fetch_data from '../firebase-init'
+
 export default {
   name: 'adminblogposts',
   data () {
@@ -46,7 +46,6 @@ export default {
       loading: false,
       articles: [],
       error: null,
-      name: 'test',
     }
     
   },
@@ -62,39 +61,12 @@ export default {
       }
     ]
     },
-  created () {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.fetchData()
-  },
-  watch: {
-    // call again the method if the route changes
-    '$route': 'fetchData'
-  },
-  methods: {
-    fetchData () {
-      this.error = null
-      this.loading = true
-      var selff = this;
-      firestore.collection("articles").get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            selff.articles.push(doc.data());         
-        });
-        this.loading = false
-      })
-      .catch(function(error) {
-          selff.error = error;
-      });
+    mixins: [fetch_data],
+    created () {    
+      this.fetchData('articles')
     },
-    deletePost: function(article) {          
-      var jobskill_query = firestore.collection('articles').where('title','==', article.title);
-      jobskill_query.get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          doc.ref.delete();
-      });
-    });
-    }
+    methods: {
+
   }
 
 }

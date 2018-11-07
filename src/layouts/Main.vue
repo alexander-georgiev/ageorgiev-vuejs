@@ -3,7 +3,7 @@
     <div class="container">
      <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <router-link to="/" class="navbar-item not-affect">Alexander Georgiev</router-link>
+        <router-link to="/" class="navbar-item not-affect"><img src="@/assets/logo.svg" width="32" alt="Alexander Georgiev" /></router-link>
         <button class="button navbar-burger">
           <span></span>
           <span></span>
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+  
   import firebase from 'firebase'
   import VueRouter from 'vue-router'
   export default {
@@ -68,6 +69,7 @@
     },
     data() {
       return {
+        image: image
       }
     },
   computed: {

@@ -1,15 +1,27 @@
 <template>
-  <div>   
+  <section class="section">
+    <h1 class="title">Add New </h1>
      <form id="edit-post" class="" v-on:submit.prevent="addPost">
-      <input class="input" type="text" placeholder="Title" v-model="title" required>
-      <textarea class="input" type="text" placeholder="Excerpt" v-model="excerpt" required></textarea>
+      
+       <div class="field">
+        <label class="label">Title</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Title" v-model="title" required>
+        </div>
+      </div>
+            <div class="field">
+        <label class="label">Content</label>
+        <div class="control">
+          <textarea class="textarea" type="text" placeholder="Excerpt" v-model="excerpt" required></textarea>
+        </div>
+      </div>
       <div class="field is-grouped">
   <div class="control">
     <button class="button is-primary is-rounded">Add</button>
   </div>
 </div>
     </form>
-  </div>
+  </section>
 </template>
 
 <script>
