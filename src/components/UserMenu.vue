@@ -21,7 +21,7 @@
     </p>
     <ul class="menu-list">
       <li><i class="fas fa-cogs"></i> <router-link to="/dashboard/settings/">Settings</router-link></li>
-      <li><i class="fas fa-search"></i> <router-link to="/dashboard/projects/">SEO</router-link></li>
+      <li><i class="fas fa-search"></i> <router-link to="/dashboard/settings/seo">SEO</router-link></li>
 
     </ul>
   </nav>

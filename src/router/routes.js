@@ -16,7 +16,13 @@ import UserMenu from '../components/UserMenu'
 import AdminBlogPosts from '../components/AdminBlogPosts'
 import AddPost from '../components/AddPost'
 import EditPost from '../components/EditPost'
+<<<<<<< HEAD
 import Pages from '../components/Pages'
+=======
+import Settings from '../components/Settings'
+import SEO from '../components/SEO'
+
+>>>>>>> 42887c4505b5fadf7f05cfe0a362194d5c31f9e5
 export const routes = [
     {
         path: '',
@@ -43,11 +49,13 @@ export const routes = [
         name: 'SingleBlog',
         path: '/blog/:id',
         component: SingleBlog
-    }, {
-        path: '/testimonials',
-        name: 'testimonials',
-        component: Testimonials
-    }, {
+    }, 
+    // {
+    //     path: '/testimonials',
+    //     name: 'testimonials',
+    //     component: Testimonials
+    // },
+     {
         name: 'SingleTestimonial',
         path: '/testimonial/:id',
         component: SingleTestimonial
@@ -93,8 +101,12 @@ export const routes = [
             },
             meta: {
                 requiresAuth: true,
+<<<<<<< HEAD
                 type: 'articles',
                 adminListing: true,
+=======
+                postType: 'articles'
+>>>>>>> 42887c4505b5fadf7f05cfe0a362194d5c31f9e5
             }
         },
         {
@@ -136,6 +148,28 @@ export const routes = [
                 adminListing: true,
             }
         },
+        {
+            path: '/dashboard/settings/',
+            name: 'Settings',
+            components: {
+                userMenu: UserMenu,
+                default: Settings,
+            },
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/dashboard/settings/seo',
+            name: 'SEO',
+            components: {
+                userMenu: UserMenu,
+                default: SEO,
+            },
+            meta: {
+                requiresAuth: true
+            }
+        }
         ],
         meta: {
             requiresAuth: true

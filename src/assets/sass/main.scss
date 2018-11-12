@@ -92,6 +92,10 @@ $positions: ("t", "top"), ("r", "right"), ("b", "bottom"), ("l", "left");
     }
 }
 
+#tab-content {
+    margin-bottom: 2rem;
+}
+
 svg#logo {
     .cls-1 {
         fill: #fff;
@@ -112,11 +116,10 @@ svg#logo {
 
     @include box-shadow(0, 2px, 22px, rgba(0, 0, 0, 0.2), 0 2px 30px 0 rgba(0, 0, 0, 0.35));
 
-    // box-shadow: 0 2px 22px 0 rgba(0, 0, 0, 0.2), 0 2px 30px 0 rgba(0, 0, 0, 0.35);
     background-color: $black;
     color: #fff;
     text-align: center;
-    height: 100vh;
+    min-height: calc(100vh - 75px);
     max-height: 100%;
     transition: .3s all ease-in;
     width: 80px;
@@ -127,7 +130,8 @@ svg#logo {
     }
 
     .menu-label {
-        display: none;
+        // display: none;
+        visibility: hidden;
     }
 
     .menu-list {
@@ -166,7 +170,7 @@ svg#logo {
         }
 
         .menu-label {
-            display: block;
+            visibility: visible;
         }
 
         .menu-list {
@@ -179,6 +183,7 @@ svg#logo {
 
             a {
                 display: block;
+                transition: .5s all ease-in;
 
                 &.is-active, &:hover {
                     background-color: transparent;
