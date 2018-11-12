@@ -64,6 +64,10 @@ export default {
     mixins: [fetch_data],
     created () {    
       this.fetchData('articles')
+      var paths = {
+        '/dashboard/posts/': 'articles'
+      }
+      vm.singleFetchData($route.meta.postType);
     },
     methods: {
 

@@ -9,7 +9,7 @@ var fetch_data = {
   methods: {
     fetchData (collection) {
 		var self = this;
-		firestore.collection('articles').get()
+		firestore.collection(collection).get()
 			.then(function(querySnapshot) {
 			querySnapshot.forEach(function(doc) {
 				self.articles.push(doc.data());         

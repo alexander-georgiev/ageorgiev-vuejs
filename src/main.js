@@ -27,6 +27,15 @@ firestore.settings(settings)
 Vue.config.productionTip = false
 Vue.use(VueRouter); // This makes all the magic hapen and Vue recognizes the router-view and router-link
 Vue.use(Meta)
+
+import Testimonials from './pages/Testimonials'
+
+routes.push({
+        path: '/testimonials',
+        name: 'testimonials',
+        component: Testimonials
+    });
+
 const router = new VueRouter({
     mode: 'history',
     linkActiveClass: 'is-active',

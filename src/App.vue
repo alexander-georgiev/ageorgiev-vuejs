@@ -18,6 +18,7 @@
 import MainLayout from './layouts/Main.vue';
 import Footer from './layouts/Footer.vue';
 import Loading from './components/Loading.vue';
+import favicon from './assets/logo/favicon-144.png'
 export default {
   components: {
     navMain: MainLayout,
@@ -25,16 +26,19 @@ export default {
     loading: Loading,
   },   
   metaInfo: {
-    title: 'Front-end Developer', // set a title
+    title: 'Alexander Georgiev - Front-end Developer', // set a title
     htmlAttrs: {
       lang: 'en',
       amp: undefined // "amp" has no value
     },
+    link: [
+      // { rel: 'favicon', href: favicon },<link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
+    ],
     meta: [
       { charset: 'utf-8' },
       {
         'property': 'og:locale',
-        'content': 'en_EN',
+        'content': 'en_US',
         'template': chunk => `${chunk}`, //or as string template: '%s - My page',
         'vmid': 'og:locale'
       },
@@ -75,7 +79,7 @@ export default {
     // this uses Vuex to check if a user is signed in
     // check out mutations in the store.js file
     this.setUser();
-    // console.log(this.$root.loading)
+
   }
 };
 </script>

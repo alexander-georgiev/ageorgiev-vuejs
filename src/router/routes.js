@@ -16,6 +16,8 @@ import UserMenu from '../components/UserMenu'
 import AdminBlogPosts from '../components/AdminBlogPosts'
 import AddPost from '../components/AddPost'
 import EditPost from '../components/EditPost'
+import Settings from '../components/Settings'
+import SEO from '../components/SEO'
 
 export const routes = [
     {
@@ -43,11 +45,13 @@ export const routes = [
         name: 'SingleBlog',
         path: '/blog/:id',
         component: SingleBlog
-    }, {
-        path: '/testimonials',
-        name: 'testimonials',
-        component: Testimonials
-    }, {
+    }, 
+    // {
+    //     path: '/testimonials',
+    //     name: 'testimonials',
+    //     component: Testimonials
+    // },
+     {
         name: 'SingleTestimonial',
         path: '/testimonial/:id',
         component: SingleTestimonial
@@ -88,7 +92,8 @@ export const routes = [
                 default: AdminBlogPosts,
             },
             meta: {
-                requiresAuth: true
+                requiresAuth: true,
+                postType: 'articles'
             }
         },
         {
@@ -113,6 +118,28 @@ export const routes = [
             requiresAuth: true
             }
         },
+        {
+            path: '/dashboard/settings/',
+            name: 'Settings',
+            components: {
+                userMenu: UserMenu,
+                default: Settings,
+            },
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/dashboard/settings/seo',
+            name: 'SEO',
+            components: {
+                userMenu: UserMenu,
+                default: SEO,
+            },
+            meta: {
+                requiresAuth: true
+            }
+        }
         ],
         meta: {
             requiresAuth: true
