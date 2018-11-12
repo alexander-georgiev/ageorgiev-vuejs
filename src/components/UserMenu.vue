@@ -10,7 +10,7 @@
       Content
     </p>
     <ul class="menu-list">
-      <li><i class="far fa-newspaper"></i> <router-link to="/dashboard/posts/">Posts</router-link></li>
+      <li><i class="far fa-newspaper"></i> <router-link to="/dashboard/articles/">Articles</router-link></li>
       <li><i class="far fa-file"></i> <router-link to="/dashboard/pages/">Pages</router-link></li>
       <li><i class="far fa-folder"></i> <router-link to="/dashboard/projects/">Projects</router-link></li>
       <li><i class="far fa-comment-alt"></i> <router-link to="/dashboard/projects/">Testimonials</router-link></li>

@@ -3,7 +3,7 @@
     <header class="level bd-structure-item bd-is-structure-container" title="level">
     <div class="level-left bd-structure-item" title="level-left">
       <div class="level-item">
-       <h1 class="title">Blog Posts</h1>
+       <h1 class="title">Pages</h1>
       </div>
       
     </div>
@@ -12,34 +12,37 @@
     </div>
   </header>     
     <ul class="">
-       <ListingCard v-for="(article, key, index) in articles" :article="article" :key="article.id" />
+      
+      <ListingCard v-for="(article, key, index) in articles" :article="article" :key="article.id" /> 
+      
     </ul>    
   </div>
 </template>
 
 <script>
 import fetch_data from '../firebase-init'
-import buttonAdd from '../components/buttons/buttonAdd'
 import ListingCard from '../components/ListingCard'
-
+import buttonAdd from '../components/buttons/buttonAdd'
 export default {
+  name: 'admin-pages',
   mixins: [fetch_data],
-      created () {    
-      this.fetchData('articles')
-    },
-  components: { buttonAdd, ListingCard },
-
+    created () {    
+   this.fetchData('pages')
+  },
+  components: {buttonAdd, ListingCard },
   data () {
     return {
       loading: false,
-      articles: [],
       error: null,
+      articles: [],
+      
     }
     
   },
-   metaInfo: {
-      titleTemplate: 'Blog Posts - %s',
-      meta: [
+ 
+  metaInfo: {
+    titleTemplate: 'Pages - %s',
+    meta: [
       { charset: 'utf-8' },
       {
         'property': 'og:title',
@@ -48,12 +51,8 @@ export default {
         'vmid': 'og:title'
       }
     ]
-    },
-
-    methods: {
-
   },
-  props: {
+    props: {
     article: Object
   }
 

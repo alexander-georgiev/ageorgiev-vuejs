@@ -2,9 +2,9 @@
   <section class="section">
     <ul class="reptileList">
       <li v-for="article in articles">
-        <h1 class="title">Edit Post - {{article.title}}</h1> 
-        ID: {{article.id}}
-         <form id="edit-post" class="" v-on:submit.prevent="editPost">
+        <h1 class="title">Edit - {{article.title}}</h1> 
+         <form id="edit-post" class="" v-on:submit.prevent="">
+<!--           <input class="input hidden" type="text" placeholder="Title" v-model="article.postType" required> -->
       <div class="field">
         <label class="label">Title</label>
         <div class="control">
@@ -19,8 +19,8 @@
       </div>
       <div class="field is-grouped">
   <div class="control">
-    <button class="button is-primary is-rounded" @click="editPost(article)">Update</button>
-    <button class="button is-danger is-rounded" @click="deletePost(article)">Delete</button>
+    <buttonEdit :article="article"/>
+    <deleteButton :article="article"/>
   </div>
 </div>
     </form>
@@ -30,66 +30,34 @@
 </template>
 
 <script>
-  import firebase from 'firebase'
-  import { firestore } from '../main'
+import fetch_data from '../firebase-init'
+import buttonEdit from '../components/buttons/buttonEdit'
+import deleteButton from '../components/buttons/deleteButton'
   export default {
-  name: 'EditPost',
+   mixins: [fetch_data],
+   components: { deleteButton, buttonEdit },
     data () {
-    return {
-      loading: false,
+    return {      
       articles: [],
       error: null,
     }
     
+  }, 
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.singleFetchData(vm.$route.params.type);    
+    next()
+    });
   },
-  created() {     
-    this.fetchData()
+
+  created() {       
 
   },
-    watch: {
-    '$route': 'fetchData'
+  watch: {
+    '$route': 'singleFetchData'
   },
   methods: {
-    editPost: function(article) {
-    var selff = this; 
-    var current_article = firestore.collection("articles").doc(article.id);
-    current_article.set({
-        title: article.title,
-        excerpt: article.excerpt,
-    })
-    .then(function() {
-      alert('Success');
-    })
-    .catch(function(error) {
-        console.error("Error updating document: ", error);
-    });
 
-    },
-    deletePost: function(article) {          
-      var jobskill_query = firestore.collection('articles').where('title','==', article.title);
-      jobskill_query.get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          doc.ref.delete();
-      });
-    });
-    },
-    fetchData () {
-      this.error = null
-      this.loading = true
-      var selff = this;
-      firestore.collection('articles').where('title','==', selff.$route.params.id).get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            var obj = doc.data();
-            obj['id'] = doc.id;
-            selff.articles.push(obj);
-        });
-        this.loading = false
-      })
-      .catch(function(error) {
-          selff.error = error;
-      });
-    }
   }
 }
 </script>

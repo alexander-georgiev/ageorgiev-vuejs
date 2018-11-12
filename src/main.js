@@ -78,7 +78,7 @@ router.afterEach((to, from) => {
 })
 
 firebase.auth().onAuthStateChanged(function (user) {
-    app =  new Vue({
+    var app =  new Vue({
     el: '#app',
     store,
     router: router,
@@ -86,15 +86,3 @@ firebase.auth().onAuthStateChanged(function (user) {
     render: h => h(App)
   });
 });
-
-// const app = new Vue({
-//     store,
-//     router: router,
-//     data: { loading: false, test: 'asd' },
-//     created() {
-//         firebase.auth().onAuthStateChanged(function(user) {
-//             this.user = user;
-//         });
-//     },
-//     render: h => h(App)
-//   }).$mount('#app')

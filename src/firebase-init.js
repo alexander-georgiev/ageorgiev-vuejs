@@ -2,14 +2,10 @@ import firebase from 'firebase'
 import { firestore } from './main'
 
 var fetch_data = {
-  watch: {
-    // call again the method if the route changes
-    '$route': 'fetchData'
-  },
   methods: {
     fetchData (collection) {
 		var self = this;
-		firestore.collection('articles').get()
+		firestore.collection(collection).get()
 			.then(function(querySnapshot) {
 			querySnapshot.forEach(function(doc) {
 				self.articles.push(doc.data());         
@@ -20,14 +16,23 @@ var fetch_data = {
           self.error = error;
       });
 	},
-    deletePost: function(article, collection) {          
-      var jobskill_query = firestore.collection(collection).where('title','==', article.title);
-      jobskill_query.get().then(function(querySnapshot) {
+    singleFetchData (collection) {
+      this.error = null
+      this.loading = true
+      var self = this;
+      firestore.collection(collection).where('title','==', self.$route.params.id).get()
+      .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-          doc.ref.delete();
+            var obj = doc.data();
+            obj['id'] = doc.id;
+            self.articles.push(obj);
+        });
+        this.loading = false
+      })
+      .catch(function(error) {
+          self.error = error;
       });
-    });
-    }   
+    },  
     }
 };
 export default fetch_data;

@@ -16,7 +16,7 @@ import UserMenu from '../components/UserMenu'
 import AdminBlogPosts from '../components/AdminBlogPosts'
 import AddPost from '../components/AddPost'
 import EditPost from '../components/EditPost'
-
+import Pages from '../components/Pages'
 export const routes = [
     {
         path: '',
@@ -82,13 +82,19 @@ export const routes = [
             }        
         },
         {
-            path: '/dashboard/posts',
+            path: '/dashboard/articles',
+            params: {
+                type: 'articles',
+            },
+            name: 'admin-posts',
             components: {
                 userMenu: UserMenu,
                 default: AdminBlogPosts,
             },
             meta: {
-                requiresAuth: true
+                requiresAuth: true,
+                type: 'articles',
+                adminListing: true,
             }
         },
         {
@@ -103,14 +109,31 @@ export const routes = [
             }
         },
           {
-            path: '/dashboard/post/:id',
+            path: '/dashboard/:type/:id',
             name: 'EditPost',
             components: {
                 userMenu: UserMenu,
                 default: EditPost,
             },
             meta: {
-            requiresAuth: true
+                requiresAuth: true,
+            }
+        },
+        {
+            path: '/dashboard/pages',
+            params: {
+                type: 'pages',
+                
+            },
+            name: 'admin-pages',
+            components: {
+                userMenu: UserMenu,
+                default: Pages,
+            },
+            meta: {
+                requiresAuth: true,
+                type: 'pages',
+                adminListing: true,
             }
         },
         ],
