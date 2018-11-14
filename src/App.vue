@@ -18,7 +18,7 @@
 import MainLayout from './layouts/Main.vue';
 import Footer from './layouts/Footer.vue';
 import Loading from './components/Loading.vue';
-import favicon from './assets/logo/favicon-144.png'
+
 export default {
   components: {
     navMain: MainLayout,
@@ -31,9 +31,6 @@ export default {
       lang: 'en',
       amp: undefined // "amp" has no value
     },
-    link: [
-      // { rel: 'favicon', href: favicon },<link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
-    ],
     meta: [
       { charset: 'utf-8' },
       {

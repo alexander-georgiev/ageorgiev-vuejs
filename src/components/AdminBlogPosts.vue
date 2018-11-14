@@ -49,18 +49,14 @@ export default {
       }
     ]
     },
-<<<<<<< HEAD
-
-=======
     mixins: [fetch_data],
     created () {    
       this.fetchData('articles')
-      var paths = {
-        '/dashboard/posts/': 'articles'
-      }
-      vm.singleFetchData($route.meta.postType);
+      // var paths = {
+      //   '/dashboard/posts/': 'articles'
+      // }
+      // vm.singleFetchData($route.meta.postType);
     },
->>>>>>> 42887c4505b5fadf7f05cfe0a362194d5c31f9e5
     methods: {
 
   },

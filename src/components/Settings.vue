@@ -15,7 +15,9 @@
     <section>
       <form id="edit-post" class="" v-on:submit.prevent="">
       
-        <inputField :data="settings.site_title" />
+        <!-- <inputField :data="settings.site_title" /> -->
+
+        <inputField fieldType="text" targetFieldPath="settings.site_title"/>
             <div class="field">
         <label class="label">Site Description</label>
         <div class="control">
@@ -37,6 +39,7 @@
 import firebase from 'firebase'
 import { firestore } from '@/main'
 import inputField from '../components/Forms/inputField'
+
 export default {
   name: 'general-settings',
   components: { inputField },
@@ -48,9 +51,10 @@ export default {
     }
     
   },
-      watch: {
+  watch: {
     '$route': 'fetchData'
   },
+
    metaInfo: {
       titleTemplate: 'Blog Posts - %s',
       meta: [
@@ -65,6 +69,10 @@ export default {
     },
     created () {    
       this.fetchData()
+      this.$store.state['forms'] = {settings: {
+        site_title: 'testt'
+      }}
+      console.log(this.$store.state.forms.settings.site_title)
     },
     methods: {
       fetchData () {

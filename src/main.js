@@ -49,7 +49,12 @@ const router = new VueRouter({
 });
 export const store = new Vuex.Store({
     state: {
-        user: null
+        user: null,
+        //     forms: {
+        //     settings: {
+        //         site_title: 'test'
+        //     }
+        // }
     },
     getters: {
         getUser: state => {

@@ -136,6 +136,13 @@ export default {
     });
 
     },
-  }
+  },
+  state: {
+    forms: {
+        registrationForm: {
+            email: ''
+        }
+    }
+}
 }
 </script>
