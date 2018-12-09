@@ -1,25 +1,27 @@
 <template>
-  <section id="sing-up">
-    <div class="container">
-
-      <h1>Sign Up</h1>
-      <div class="field">
-  <div class="control">
-    <input type="text" class="input is-rounded" v-model="email" placeholder="Email">
+<section class="hero is-fullheight full-screen">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="column is-4 is-offset-4">
+        <h1 class="title is-spaced"><i class="fas fa-edit"></i> Sign Up</h1>
+        <div class="box">
+          <figure class="avatar">
+            <img src="@/assets/logo.svg" width="128" alt="Alexander Georgiev" />
+                        </figure>
+            <div class="field">
+              <div class="control">
+                <input type="text" class="input is-rounded" v-model="email" placeholder="Email">
+              </div>
+            </div>
+            <div class="control">
+              <input type="password" class="input is-rounded" v-model="password" placeholder="Password">
+            </div>
+            <button class="button is-block is-primary is-rounded is-fullwidth" v-on:click="signUp">Sign Up</button>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-        <div class="control">
-    <input type="password" class="input is-rounded" v-model="password" placeholder="Password">
-  </div>
-</div>
-     <div class="control">
-    <button class="button is-link" v-on:click="signUp">Sign Up</button>
-  </div>
-
-
-  </div>
-
-  </section>
+</section>
 </template>
 
 <script>

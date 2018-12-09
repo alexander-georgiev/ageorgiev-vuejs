@@ -5,7 +5,7 @@ $black: #212120;
 $grey: hsla(0, 0%, 100%, 0.5);
 $clouds: #ECE9E6;
 $link-active: $primary;
-$family-serif: "Dosis", sans-serif;
+$family-serif: "Exo 2", sans-serif;
 $family-primary: $family-serif;
 $transition_duration: 0.3s;
 $sizeUnit: rem;
@@ -13,8 +13,12 @@ $marginKey: "m";
 $paddingKey: "p";
 $separator: "-";
 $sizes: ("none", 0), ("xxs", 0.125), ("xs", 0.25), ("sm", 0.5), ("md", 1), ("lg", 2), ("xl", 4), ("xxl", 8);
-
+$navbar-item-color: rgba(0, 0, 0, 0.6);
+$navbar-item-hover-background-color: "transparent";
+$navbar-item-hover-color: #000;
+$navbar-item-active-color: $primary;
 $positions: ("t", "top"), ("r", "right"), ("b", "bottom"), ("l", "left");
+$full_screen_hero: calc(100vh - 141px);
 
 @function sizeValue($key, $value) {
     @return if($key == "none", 0, $value + $sizeUnit);
@@ -55,6 +59,14 @@ $positions: ("t", "top"), ("r", "right"), ("b", "bottom"), ("l", "left");
 @mixin transition($transition_duration, $where, $how) {
     -webkit-transition: $transition_duration $where $how;
     transition: $transition_duration $where $how;
+}
+
+body {
+    letter-spacing: -1px;
+}
+
+.hero.full-screen.is-fullheight {
+    min-height: $full_screen_hero;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -208,6 +220,6 @@ a.navbar-item.is-active, a.navbar-link.is-active {
     color: #fff;
 }
 
-@import url("https://fonts.googleapis.com/css?family=Dosis");
+@import url("https://fonts.googleapis.com/css?family=Exo+2");
 
 @import "~bulma/bulma";
