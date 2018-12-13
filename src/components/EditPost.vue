@@ -49,6 +49,7 @@ import axios from 'axios'
 import fetch_data from '../firebase-init'
 import buttonEdit from '../components/buttons/buttonEdit'
 import deleteButton from '../components/buttons/deleteButton'
+import firebase from 'firebase'
   export default {
    mixins: [fetch_data],
    components: { deleteButton, buttonEdit },
@@ -97,18 +98,35 @@ import deleteButton from '../components/buttons/deleteButton'
        removeImage: function (e) {
          this.userImage = ''
        },
-      onUpload() {
-        const formData = new FormData()
-        formData.append('featured-image', this.selectedFile, this.selectedFile.name)
-        axios.post('/assets', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          onUploadProgress: progressEvent => {
-            this.uploadPercentage = progressEvent.loaded / progressEvent.total;
-          }
-        });
-      }
+      onUpload(e) {
+        // const formData = new FormData()
+        // formData.append('featured-image', this.selectedFile, this.selectedFile.name)
+        // axios.post('/assets', formData, {
+        //   headers: {
+        //     'Content-Type': 'multipart/form-data',
+        //   },
+        //   onUploadProgress: progressEvent => {
+        //     this.uploadPercentage = progressEvent.loaded / progressEvent.total;
+        //   }
+        // });
+
+        var storage = firebase.storage();
+
+        var files = e.target.files || e.dataTransfer.files
+        this.selectedFile = event.target.files[0];
+          console.log(selectedFile);
+        
+        var storageRef = firebase.storage().ref();
+        
+        //dynamically set reference to the file name
+        var thisRef = storageRef.child(file.name);
+
+        //put request upload file to firebase storage
+        thisRef.put(file).then(function(snapshot) {
+          console.log('Uploaded a blob or file!');
+
+            });
+      },
   }
 }
 </script>

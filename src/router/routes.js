@@ -29,18 +29,25 @@ export const routes = [
             // projects: Projects,
             contact: Contact,
             blog: ListingBlog,
-        }
+        },
     }, {
         path: '/blog',
+        params: {
+            type: 'articles',
+        },
         name: 'blog',
         component: Blog,
         children: [{
             path: '/',
+            params: {
+                type: 'articles',
+            },
             name: 'listingblog',
             components: {
                 default: ListingBlog,
                 sidebar: Sidebar
-            }
+            },
+
         }]
     }, {
         name: 'SingleBlog',
