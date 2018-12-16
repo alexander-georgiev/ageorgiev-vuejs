@@ -104,6 +104,28 @@ body {
     }
 }
 
+.alert {
+    position: fixed;
+    transition: .3s all ease;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+
+    .notification {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+
+.progress::-webkit-progress-value {
+    -webkit-transition: width 2s ease;
+    -moz-transition: width 2s ease;
+    -o-transition: width 2s ease;
+    transition: width 2s ease;
+}
+
 #tab-content {
     margin-bottom: 2rem;
 }

@@ -16,7 +16,7 @@ var firebaseApp = firebase.initializeApp({
     authDomain: "personal-website-156914.firebaseapp.com",
     databaseURL: "https://personal-website-156914.firebaseio.com",
     projectId: "personal-website-156914",
-    storageBucket: "",
+    storageBucket: "gs://personal-website-156914.appspot.com",
     messagingSenderId: "179474896816"
 })
 export const firestore = firebaseApp.firestore();
@@ -50,11 +50,6 @@ const router = new VueRouter({
 export const store = new Vuex.Store({
     state: {
         user: null,
-        //     forms: {
-        //     settings: {
-        //         site_title: 'test'
-        //     }
-        // }
     },
     getters: {
         getUser: state => {
@@ -100,3 +95,19 @@ firebase.auth().onAuthStateChanged(function (user) {
     render: h => h(App)
   });
 });
+// Vue.component('Alert', {
+//   template: '#alert',
+//   props: ['show', 'title'],
+//   methods: {
+//     close: function () {
+//       this.$emit('close');
+//     }
+//   },
+//   mounted: function () {
+//     document.addEventListener("keydown", (e) => {
+//       if (this.show && e.keyCode == 27) {
+//         this.close();
+//       }
+//     });
+//   }
+// });

@@ -17,13 +17,14 @@
         <div class="control">
           <textarea class="textarea" placeholder="Textarea" v-model="article.excerpt" required></textarea>
         </div>
-      <progress max="100" v-bind:value="uploadPercentage"></progress>
 </div>
 
       <div class="field is-grouped">
   <div class="control">
     <buttonEdit :article="article"/>
     <deleteButton :article="article"/>
+    <button @click="testAlert" class="button is-info">Alert</button>
+    <Alert :alert="alert"/>
   </div>
 </div>
     </form>
@@ -31,6 +32,7 @@
     </ul>
   </div>
           <div class="column">
+            <progress max="100" v-bind:value="uploadPercentage" class="progress is-primary">0%</progress>
 <img class="profile-image" :src="userImage" />
 
   <div v-if="!userImage">
@@ -39,6 +41,7 @@
   <div class="" v-else>
     <button @click="onUpload" class="is-pulled-left button is-primary">Upload Image</button>
     <button class="is-pulled-right button is-danger" @click="removeImage">Remove</button>    
+    <button class="is-pulled-right button is-danger" @click="deleteFeatureImage">Delete</button>
   </div>
 </div>
   </section>
@@ -50,40 +53,48 @@ import fetch_data from '../firebase-init'
 import buttonEdit from '../components/buttons/buttonEdit'
 import deleteButton from '../components/buttons/deleteButton'
 import firebase from 'firebase'
+import Alert from '../components/Alert'
+import alex_alert from '../components/a-alert.js'
   export default {
    mixins: [fetch_data],
-   components: { deleteButton, buttonEdit },
+   components: { deleteButton, buttonEdit, Alert },
     data () {
     return {      
       articles: [],
       error: null,
-      previewImage: null,
-      selectedFile: null,
+      featuredImage: null,
+      featureImageUrl: '',
       uploadPercentage: 0,
       userImage: '',
-      files: []      
+      file: null,
+      alert: {
+        title: '',
+        msg: '',
+        status: '',
+        show: '',
+      }
     }    
-  }, 
+  },
+
   beforeRouteEnter (to, from, next) {
     next(vm => {
       vm.singleFetchData(vm.$route.params.type);    
     next()
     });
   },
-
-  created() {       
-
-  },
   watch: {
     '$route': 'singleFetchData'
   },
   methods: {
+        testAlert() { 
+          alex_alert('Done', 'Your image has been uploaded.', 'success');
+        },
         onFileChange(e) {
         var files = e.target.files || e.dataTransfer.files
         if (!files.length) {
           return
         }
-        this.selectedFile = event.target.files[0]
+        this.featuredImage = event.target.files[0]
         this.createImage(files[0])
       },
       createImage(file) {
@@ -98,35 +109,68 @@ import firebase from 'firebase'
        removeImage: function (e) {
          this.userImage = ''
        },
-      onUpload(e) {
-        // const formData = new FormData()
-        // formData.append('featured-image', this.selectedFile, this.selectedFile.name)
-        // axios.post('/assets', formData, {
-        //   headers: {
-        //     'Content-Type': 'multipart/form-data',
-        //   },
-        //   onUploadProgress: progressEvent => {
-        //     this.uploadPercentage = progressEvent.loaded / progressEvent.total;
-        //   }
-        // });
+      onUpload() {
+        var storageRef = firebase.storage().ref(),
+        thisRef = storageRef.child(this.featuredImage.name).put(this.featuredImage),
+        self = this;
+        thisRef.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
 
-        var storage = firebase.storage();
+    function(snapshot) {
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      self.uploadPercentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.log('Upload is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          break;
+      }
+    }, function(error) {
 
-        var files = e.target.files || e.dataTransfer.files
-        this.selectedFile = event.target.files[0];
-          console.log(selectedFile);
-        
-        var storageRef = firebase.storage().ref();
-        
-        //dynamically set reference to the file name
-        var thisRef = storageRef.child(file.name);
+    // A full list of error codes is available at
+    // https://firebase.google.com/docs/storage/web/handle-errors
+    switch (error.code) {
+      case 'storage/unauthorized':
+        // User doesn't have permission to access the object
+        break;
 
-        //put request upload file to firebase storage
-        thisRef.put(file).then(function(snapshot) {
-          console.log('Uploaded a blob or file!');
+      case 'storage/canceled':
+        // User canceled the upload
+        break;
 
-            });
+      case 'storage/unknown':
+        // Unknown error occurred, inspect error.serverResponse
+        break;
+    }
+  }, function() {
+    // Upload completed successfully, now we can get the download URL
+    thisRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+      self.featureImageUrl = downloadURL;
+      self.alert.title = 'Success!';
+          self.alert.msg = 'Your image has been uploaded.';
+          self.alert.status = 'is-success';
+          self.alert.show = true;
+      
+    });
+  });
+
       },
+      deleteFeatureImage() {
+        var self = this;
+        var storageRef = firebase.storage().ref();
+        var desertRef = storageRef.child(this.featuredImage.name)
+            desertRef.delete().then(function() {
+              alert('deleted');
+               self.alert.title = 'Success';
+          self.alert.msg = 'Your image has been deleted.';
+          self.alert.status = 'is-success';
+          self.alert.show = true;
+      
+      }).catch(function(error) {
+        console.log(error);
+          });
+
+      }
   }
 }
 </script>
