@@ -11,8 +11,8 @@ function alex_alert(title, text, type, button) {
 
 	var close_button = document.getElementById('close-alert');
 	close_button.addEventListener('click', function() {
-		alert.className = 'alert hidden';
-		overlay.className = 'overlay hidden';
+		alert.parentNode.removeChild(alert);
+		overlay.parentNode.removeChild(overlay);
 	}, false);
 	
 }

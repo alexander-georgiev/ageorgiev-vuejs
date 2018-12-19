@@ -235,7 +235,10 @@ svg#logo {
 a.navbar-item.is-active, a.navbar-link.is-active {
     color: $primary;
 }
-
+.toolbox-buttons {
+       display: flex;
+    justify-content: space-between;
+}
 #footer {
     background: #222;
     padding: 2rem 0;
