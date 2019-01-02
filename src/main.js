@@ -50,15 +50,29 @@ const router = new VueRouter({
 export const store = new Vuex.Store({
     state: {
         user: null,
+        loading: false
     },
     getters: {
         getUser: state => {
             return state.user;
+        },
+        getLoading: state => {
+            return state.loading;
         }
     },
     mutations: {
         setUser: state => {
             state.user = firebase.auth().currentUser;
+        },
+        setLoading(state, val) {
+
+            if (val === true) {
+                state.loading = true
+                
+            } else {
+                state.loading = false;
+                
+            }
         }
     },
     actions: {
@@ -67,11 +81,31 @@ export const store = new Vuex.Store({
         }
     }
 });
+
+    const app =  new Vue({
+    el: '#app',
+    store,
+    router: router,
+    data: { loading: false, user: null },
+    created() {
+    var self = this;        
+       firebase.auth().onAuthStateChanged((user) => {
+      if(user) {
+        self.user = user
+      } else {
+        this.$router.push('/login')
+      }
+     });
+ 
+    },
+    render: h => h(App)
+  });
 router.beforeEach((to, from, next) => {
     app.loading = true;
     let currentUser = firebase.auth().currentUser;
     let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     if (requiresAuth && !currentUser) {
+        alert('NO!')
         next('/login');
     } else if (requiresAuth && currentUser) {
         next();
@@ -80,34 +114,17 @@ router.beforeEach((to, from, next) => {
     }
 })
 
-router.afterEach((to, from) => {
-  // Complete the animation of the route progress bar.
-  setTimeout(() => app.loading = false, 1000);
-  
+router.afterEach((to, from) => {     
+setTimeout(function(){ app.loading = false }, 300);
+
 })
 
-firebase.auth().onAuthStateChanged(function (user) {
-    var app =  new Vue({
-    el: '#app',
-    store,
-    router: router,
-    data: { loading: false},
-    render: h => h(App)
-  });
-});
-// Vue.component('Alert', {
-//   template: '#alert',
-//   props: ['show', 'title'],
-//   methods: {
-//     close: function () {
-//       this.$emit('close');
-//     }
-//   },
-//   mounted: function () {
-//     document.addEventListener("keydown", (e) => {
-//       if (this.show && e.keyCode == 27) {
-//         this.close();
-//       }
-//     });
-//   }
+// firebase.auth().onAuthStateChanged(function (user) {
+//     const app =  new Vue({
+//     el: '#app',
+//     store,
+//     router: router,
+//     data: { loading: false},
+//     render: h => h(App)
+//   });
 // });

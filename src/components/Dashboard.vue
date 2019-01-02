@@ -25,7 +25,6 @@ export default {
   components: { UserSettingsNav },
   data () {
     return {
-         user: {},
          name: '',
          selectedFile: null
     }

@@ -1,17 +1,15 @@
 <template>
   <section id="profile" class="section">
-    <div class="">
-      
-      <h1 class="title">Edit Profile</h1>
+      <h1 class="title">Edit Profile</h1>           <button class="button is-block is-danger is-large is-fullwidth" v-on:click="logout">Logout</button>
       <div class="columns">
         
-        <div class="column">
+        <div class="column is-three-quarters">
            
-          <div class="field-body">
+        <div class="field-body">
         <div class="field">
           <label class="label">Display Name</label>
           <div class="control has-icons-left has-icons-right">
-            <input class="input" type="text" placeholder="Text input" name="last_name" v-model="last_name">
+            <input class="input" type="text" placeholder="Text input" v-model="displayName">
             <span class="icon is-small is-left">
               <i class="fas fa-user"></i>
             </span>   
@@ -25,31 +23,43 @@
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
             </span>
-          </div>
-          
+          </div>          
         </div>
+        
         </div>
-        <form enctype="multipart/form-data" novalidate>
-          <h1>Upload images</h1>
-          <div class="dropbox">
-            <input type="file" @change="processFile()">
-           
+        
+        <div class="field is-grouped m-t-md">
+          <div class="control">
+            <button class="button is-primary" v-on:click="edit_profile">Submit</button>
           </div>
-        </form>
+          <div class="control">
+            <button class="button is-light">Cancel</button>
+          </div>
 
-        <div class="field is-grouped">
-          <div class="control">
-            <button class="button is-link" v-on:click="edit_profile">Submit</button>
-          </div>
-          <div class="control">
-            <button class="button is-text">Cancel</button>
-          </div>
-          <button class="button is-block is-info is-large is-fullwidth" v-on:click="logout">Logout</button>
         </div>
+      </div>
+      <div class="column">
+        <div v-if="photoURL">
+          <figure class="image"><img class="featured-image" :src="photoURL" /></figure>
+        </div>
+          <div class="file m-t-md">
+            <label class="file-label">
+              <input type="file" class="file-input" @change="processFile" id="featuredImage" accept="image/*" />
+              <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label">
+                Choose an image
+              </span>
+              </span>
+            </label>
+          </div>
+
       </div>
     </div>
 
-      </div>
+      
   </section>
 </template>
 <style lang="scss">
@@ -90,25 +100,29 @@ export default {
   data () {
     return {
          user: {},
-         name: '',
-         selectedFile: null
+         selectedFile: null,
+         percentage: 0,
+         photoURL: null,
+         email: '',
+         displayName: '',
     }
   },
-
-  created() {                        
-    this.user = firebase.auth().currentUser; 
-    if(this.user) { 
-      this.last_name = this.user.displayName; 
-      this.email = this.user.email; 
-      this.photo = this.user.photoURL; 
-      this.userId = this.user.uid; 
+  created() {    
+    if(this.$root.user) { 
+      this.displayName = this.$root.user.displayName; 
+      this.email = this.$root.user.email; 
+      this.photoURL = this.$root.user.photoURL; 
+      this.userId = this.$root.user.uid; 
     } 
   },
-
+  watch: {
+    '$route': 'this.$root.user'
+  },
   methods: {
-      processFile() {
+      processFile(e) {
+        var self = this;
         var file = e.target.files[0];
-        var storageRef = firebase.storage().ref(user + '/profilePicture/' + file.name);
+        var storageRef = firebase.storage().ref('/users/' + file.name);
         var task = storageRef.put(file);
         var user = firebase.auth().currentUser;        
 
@@ -117,27 +131,28 @@ export default {
 
          function progress(snapshot){
             var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) *100;
-            uploader.value = percentage;
-
-            //if percentage = 100
-            //$(".overlay").hide();         
+            self.percentage = percentage;       
          },
 
          function error(err){
-
+          alert(err);
          },
 
          function complete(){
+            task.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            self.photoURL = downloadURL;
+          });
             alert('rdy');
          }
          )
       },
       edit_profile: function() {
         var user = firebase.auth().currentUser;
+        self = this;
         user.updateProfile({
-          displayName: this.last_name,
-          email: this.email,
-          photoURL: this.photo,
+          displayName: self.displayName,
+          email: self.email,
+          photoURL: self.photoURL,
         }).then(function() {
           alert('yes');          
         }).catch(function(error) {

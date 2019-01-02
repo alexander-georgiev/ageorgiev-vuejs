@@ -8,16 +8,16 @@
                         <figure class="avatar">
                             <img src="@/assets/logo.svg" width="128" alt="Alexander Georgiev" />
                         </figure>
-                    
+                    <!-- <form autocomplete="on"> -->
                             <div class="field">
                                 <div class="control">
-                                    <input class="input" type="email" v-model="email" placeholder="Your Email" autofocus="">
+                                    <input class="input" type="email" v-model="email" placeholder="Your Email" autofocus="" autocomplete="on">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <div class="control">
-                                    <input class="input" type="password" v-model="password" placeholder="Your Password">
+                                    <input class="input" type="password" v-model="password" placeholder="Your Password" autocomplete="on">
                                 </div>
                             </div>
                             <div class="field">
@@ -30,8 +30,9 @@
                                   </div>
                               </p>
                             </div>
+                          
                             <button class="button is-block is-primary is-fullwidth" v-on:click="login">Login</button>
-                    
+                    <!-- </form> -->
                     </div>
                     <p class="has-text-grey">
                         <router-link to="signup">Sign Up</router-link> &nbsp;·&nbsp;
