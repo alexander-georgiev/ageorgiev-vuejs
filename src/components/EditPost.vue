@@ -6,7 +6,7 @@
         <div class="field">
           <label class="label">Title</label>
           <div class="control">
-            <input class="input" type="text" placeholder="Title" v-model="article.title" required>
+            <inputField fieldType="text" v-model="article.title" label="Title" @on-change="setAddress"/>
           </div>
         </div>
         <div class="field">
@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="column">
-        <progress v-if="uploadPercentage > 0" max="100" v-bind:value="uploadPercentage" class="progress is-primary">0%</progress>        
+        <progress max="100" :value="uploadPercentage" class="progress is-primary">0%</progress>
         <div v-if="featureImageURL">
           <figure class="image"><img class="featured-image" :src="article.featureImageURL" /></figure>
         </div>
@@ -45,7 +45,7 @@
             </label>
           </div>
           <div class="toolbox-buttons">
-            <buttonEdit :article="article" :featuredImage="featuredImage" :uploadedPercentage="uploadPercentage" />
+            <buttonEdit :article="article" :featuredImage="featuredImage" @clicked="onClickChild" />
             <deleteButton :article="article" />
           </div>
       </div>
@@ -54,6 +54,7 @@
 </template>
 <script>
 import fetch_data from '../firebase-init'
+import inputField from '../components/Forms/inputField'
 import buttonEdit from '../components/buttons/buttonEdit'
 import deleteButton from '../components/buttons/deleteButton'
 
@@ -62,7 +63,7 @@ import Alert from '../components/Alert'
 
 export default {
   mixins: [fetch_data],
-  components: { deleteButton, buttonEdit },
+  components: { inputField, deleteButton, buttonEdit },
   data() {
     return {
       articles: [],
@@ -73,18 +74,27 @@ export default {
       featureImageURL: '',
     }
   },
+  created() {
 
+  },
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.singleFetchData(vm.$route.params.type);
       next()
     });
+
   },
   watch: {
     '$route': 'singleFetchData'
   },
   methods: {
-
+    setAddress(value, index) {
+      // this.addresses[index] = Object.assign(this.addresses[index], value);
+    },
+    onClickChild(child) {
+      this.uploadPercentage = child.uploadPercentage;
+      this.previewFeatureImage = child.previewFeaturedImage;
+    },
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files
       if (!files.length) {

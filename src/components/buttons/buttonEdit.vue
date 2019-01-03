@@ -13,7 +13,8 @@ export default {
   data() {
     return {
       articles: [],
-      uploadPercentage: this.uploadedPercentage,
+      uploadercentage: '',
+      previewImage: null,
     }
   },
   methods: {
@@ -32,14 +33,15 @@ export default {
 
     },
     onUpload() {
-      var storageRef = firebase.storage().ref();
-      var thisRef = storageRef.child(this.featuredImage.name).put(this.featuredImage),
+      var storageRef = firebase.storage().ref(),
+      thisRef = storageRef.child('images/'+this.article.postType+'/'+this.featuredImage.name).put(this.featuredImage),
         self = this;
       thisRef.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
 
         function(snapshot) {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          self.uploadPercentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          self.uploadedPercentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          self.$emit('clicked', { uploadPercentage: self.uploadedPercentage, previewFeaturedImage: null })
           switch (snapshot.state) {
             case firebase.storage.TaskState.PAUSED: // or 'paused'
               console.log('Upload is paused');
@@ -76,6 +78,7 @@ export default {
     },
     editPost(article) {
       var self = this;
+      // this.$emit('clicked', { uploadPercentage: 100, previewFeaturedImage: null })
       var postType = self.$route.params.type;
 
       var current_article = firestore.collection(postType).doc(article.id);
@@ -86,6 +89,7 @@ export default {
           featureImageURL: article.featureImageURL,
         })
         .then(function() {
+          // self.previewImage = null;
           alex_alert('Done', 'Your "' + self.article.title + '" has been updated.', 'success');
         })
         .catch(function(error) {
@@ -103,7 +107,6 @@ export default {
   },
   props: {
     article: Object,
-    uploadedPercentage: Number,
     featuredImage: File,
   },
 }
