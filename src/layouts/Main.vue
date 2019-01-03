@@ -28,10 +28,10 @@
           
 
             <router-link to="/contact" class="navbar-item">Contact</router-link>          
-            <router-link v-if="!user" to="/login" class="navbar-item">Login</router-link>
-            <router-link v-if="!user" to="/signup" class="navbar-item">Sign Up</router-link>
+            <router-link v-if="!$root.user" to="/login" class="navbar-item">Login</router-link>
+            <router-link v-if="!$root.user" to="/signup" class="navbar-item">Sign Up</router-link>
              
-            <div class="dropdown is-right  is-hoverable navbar-item" v-if="user">
+            <div class="dropdown is-right  is-hoverable navbar-item" v-if="$root.user">
               <div class="dropdown-trigger">
                 <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
                   <span><i class="far fa-user-circle"></i></span>
@@ -43,10 +43,10 @@
               <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                 <div class="dropdown-content">
                   <div class="dropdown-item">
-                    <router-link v-if="user" to="/dashboard" class="navbar-item">Dashboard</router-link>
-                    <router-link v-if="user" to="/dashboard/profile" class="navbar-item">Profile</router-link>
-                    <router-link v-if="user" to="/dashboard/posts" class="navbar-item">Posts</router-link>
-                    <button v-if="user" class="navbar-item button is-primary is-fullwidth" v-on:click="logout">Logout</button>             
+                    <router-link v-if="$root.user" to="/dashboard" class="navbar-item">Dashboard</router-link>
+                    <router-link v-if="$root.user" to="/dashboard/profile" class="navbar-item">Profile</router-link>
+                    <router-link v-if="$root.user" to="/dashboard/posts" class="navbar-item">Posts</router-link>
+                    <button v-if="$root.user" class="navbar-item button is-primary is-fullwidth" v-on:click="logout">Logout</button>             
                   </div>
                 </div>
               </div>
@@ -72,11 +72,11 @@
         
       }
     },
-  computed: {
-    user() {
-      return this.$store.getters.getUser;
-    }
-  },
+  // computed: {
+  //   user() {
+  //     return this.$store.getters.getUser;
+  //   }
+  // },
   methods: {
       setUser: function() {
         this.$store.dispatch('setUser');
@@ -85,6 +85,7 @@
         firebase.auth().signOut().then(() => {
           alert('Signed out!');
           this.$router.replace('login');
+          this.$root.user = null;
         })
       }
     },

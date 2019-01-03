@@ -1,7 +1,7 @@
 <template>
 
   <main id="app">
-    <loading v-if="this.$root.loading"></loading>
+    <loading></loading>
     <nav-main v-if="$route.meta.requiresAuth !== true"></nav-main>  
     <router-view></router-view>
     <div v-if="$route.name == 'home'" class="bd-lead">

@@ -1,7 +1,7 @@
 <template> 
   <nav class="menu">
     <div class="user-area">
-      <router-link to="/dashboard/profile/">Hi, Alex</router-link>
+      <router-link to="/dashboard/profile/">Hi, {{displayName}}</router-link>
     </div>    
     <ul class="menu-list">
       <li class="m-t-md"><i class="fas fa-home"></i> <router-link to="/dashboard/">Dashboard</router-link></li>
@@ -32,8 +32,11 @@ export default {
   name: 'usermenu',
   data () {
     return {
-      msg: ''
+      displayName: 'Alex',
     }
+  },
+  created() {
+    // displayName: this.$root.user.displayName
   }
 }
 </script>
