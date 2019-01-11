@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 import { firestore } from './main'
-import aLoading from './components/a-loading.js'
+//import aLoading from './components/a-loading.js'
 var fetch_data = {
   methods: {
     fetchData (collection) {

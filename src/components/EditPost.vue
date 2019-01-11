@@ -2,19 +2,10 @@
   <div>
     <section class="section columns" v-for="article in articles">
       <div class="column is-three-quarters">
-        <h1 class="title">Edit - {{article.title}}</h1>
-        <div class="field">
-          <label class="label">Title</label>
-          <div class="control">
-            <inputField fieldType="text" v-model="article.title" label="Title" @on-change="setAddress"/>
-          </div>
-        </div>
-        <div class="field">
-          <label class="label">Content</label>
-          <div class="control">
-            <textarea class="textarea" placeholder="Textarea" v-model="article.excerpt" required></textarea>
-          </div>
-        </div>
+        <h1 class="title">Edit - {{article.title}}</h1>        
+        <inputField fieldType="text" label="Title" @on-change="setAddress" fieldKey="title" :fieldValue="article.title"/>
+        <inputField fieldType="textarea" label="Content" @on-change="setAddress" fieldKey="excerpt" :fieldValue="article.excerpt"/>
+        <inputField fieldType="select" label="Content" @on-change="setAddress" fieldKey="excerpt" :fieldValue="select"/>
       </div>
       <div class="column">
         <progress max="100" :value="uploadPercentage" class="progress is-primary">0%</progress>
@@ -60,7 +51,6 @@ import deleteButton from '../components/buttons/deleteButton'
 
 import Alert from '../components/Alert'
 
-
 export default {
   mixins: [fetch_data],
   components: { inputField, deleteButton, buttonEdit },
@@ -72,6 +62,16 @@ export default {
       previewFeatureImage: null,
       uploadPercentage: 0,
       featureImageURL: '',
+      select: [
+        {
+          name: 'Option 1',
+          value: 0,
+        },
+        {
+          name: 'Option 21',
+          value: 0,
+        }
+      ]
     }
   },
   created() {
@@ -88,8 +88,8 @@ export default {
     '$route': 'singleFetchData'
   },
   methods: {
-    setAddress(value, index) {
-      // this.addresses[index] = Object.assign(this.addresses[index], value);
+    setAddress(value) {
+      this.articles[0][value.propKey] = value.propValue;
     },
     onClickChild(child) {
       this.uploadPercentage = child.uploadPercentage;
