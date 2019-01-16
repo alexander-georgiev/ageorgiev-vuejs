@@ -1,10 +1,16 @@
-$primary: #3367d6;
-$red: red;
-$blue: #3367d6;
+$red: #ff2634;
+$yellow: #fff826;
+$orange: #ff8b26;
+$purple: #8426ff;
+$cyan: #26ffde;
+$blue: #2646FF;
+$lighter_blue: #5067e6;
 $black: #212120;
-$grey: hsla(0, 0%, 100%, 0.5);
+$grey: #919191;
 $clouds: #ECE9E6;
+$primary: $blue;
 $link-active: $primary;
+$subtitle-color: #5D5D5D;
 $family-serif: "Exo 2", sans-serif;
 $family-primary: $family-serif;
 $transition_duration: 0.3s;
@@ -20,6 +26,8 @@ $navbar-item-active-color: $primary;
 $positions: ("t", "top"), ("r", "right"), ("b", "bottom"), ("l", "left");
 $full_screen_hero: calc(100vh - 141px);
 
+//buttons
+$link-hover: $lighter_blue;
 @function sizeValue($key, $value) {
     @return if($key == "none", 0, $value + $sizeUnit);
 }
