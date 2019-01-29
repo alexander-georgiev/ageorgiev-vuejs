@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link v-if="$route.meta.adminListing === true" :to="{ name: 'EditPost', params: { id: article.title, type: article.postType }}" class="button is-primary is-rounded m-r-md">Edit</router-link>
+    <router-link v-if="$route.meta.adminListing === true" :to="{ name: 'EditPost', params: { id: article.title, postType: article.postType }}" class="button is-primary is-rounded m-r-md">Edit</router-link>
     <button v-else class="button is-primary is-rounded" @click="updatePost(article)">Update</button>
   </div>
 </template>
@@ -79,7 +79,7 @@ export default {
     editPost(article) {
       var self = this;
       // this.$emit('clicked', { uploadPercentage: 100, previewFeaturedImage: null })
-      var postType = self.$route.params.type;
+      var postType = self.$route.params.postType;
 
       var current_article = firestore.collection(postType).doc(article.id);
       current_article.set({

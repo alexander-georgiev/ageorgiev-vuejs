@@ -1,6 +1,6 @@
 <template>
 <div>
-	<router-link v-if="$route.meta.adminListing === true" :to="{ name: 'AddPost', params: { type: 'articles' } }" class="button is-rounded is-primary">Add</router-link>
+	<router-link v-if="$route.meta.adminListing === true" :to="{ name: 'AddPost', params: { postType: $route.meta.postType, action: 'AddPost' } }" class="button is-rounded is-primary">Add</router-link>
 
 	<button v-else class="button is-primary is-rounded" @click="addPost(article)">Add</button>
 </div>
@@ -17,7 +17,8 @@ export default {
 	methods: {		
 	    addPost: function(article) {  
 		    var self = this; 
-		    var postType = self.$route.params.type;		
+		    var postType = self.$route.params.postType;
+		    console.log(postType);
 
 		      firestore.collection(postType).add({
 		          title: article.title,
