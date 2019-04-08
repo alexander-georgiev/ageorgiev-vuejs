@@ -95,9 +95,6 @@ export const routes = [
         },
         {
             path: '/dashboard/articles',
-            params: {
-                type: 'articles',
-            },
             name: 'admin-posts',
             components: {
                 userMenu: UserMenu,
@@ -105,17 +102,27 @@ export const routes = [
             },
             meta: {
                 requiresAuth: true,
-                type: 'articles',
                 adminListing: true,
                 postType: 'articles'
             }
         },
+        // {
+        //     path: '/dashboard/AddPost',
+        //     name: 'AddPost',
+        //     components: {
+        //         userMenu: UserMenu,
+        //         default: AddPost,
+        //     },
+        //     meta: {
+        //         requiresAuth: true
+        //     }
+        // },
         {
             path: '/dashboard/AddPost',
             name: 'AddPost',
             components: {
                 userMenu: UserMenu,
-                default: AddPost,
+                default: EditPost,
             },
             meta: {
                 requiresAuth: true
@@ -135,7 +142,7 @@ export const routes = [
         {
             path: '/dashboard/pages',
             params: {
-                type: 'pages',
+                postType: 'pages',
                 
             },
             name: 'admin-pages',
@@ -145,7 +152,7 @@ export const routes = [
             },
             meta: {
                 requiresAuth: true,
-                type: 'pages',
+                postType: 'pages',
                 adminListing: true,
             }
         },
