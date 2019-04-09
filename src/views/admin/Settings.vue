@@ -38,7 +38,7 @@
 <script>
 import firebase from 'firebase'
 import { firestore } from '@/main'
-import inputField from '../components/Forms/inputField'
+import inputField from '../../components/Forms/inputField'
 
 export default {
   name: 'general-settings',

@@ -81,11 +81,11 @@
   </div>
 </template>
 <script>
-import fetch_data from '../firebase-init'
-import inputField from '../components/Forms/inputField'
-import buttonEdit from '../components/buttons/buttonEdit'
-import buttonAdd from '../components/buttons/buttonAdd'
-import deleteButton from '../components/buttons/deleteButton'
+import fetch_data from '../../firebase-init'
+import inputField from '../../components/Forms/inputField'
+import buttonEdit from '../../components/buttons/buttonEdit'
+import buttonAdd from '../../components/buttons/buttonAdd'
+import deleteButton from '../../components/buttons/deleteButton'
 
 export default {
   name: 'EditPost',

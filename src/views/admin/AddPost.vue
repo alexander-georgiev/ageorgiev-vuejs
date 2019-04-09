@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import { firestore } from '../main'
+import { firestore } from '../../main'
 import firebase from 'firebase'
-import buttonAdd from '../components/buttons/buttonAdd'
+import buttonAdd from '../../components/buttons/buttonAdd'
 
 export default {
   name: 'AddPost',

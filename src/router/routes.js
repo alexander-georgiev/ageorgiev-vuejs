@@ -1,25 +1,28 @@
 import MainLayout from '../layouts/Main.vue'
-import NotFound from '../pages/404'
-import Home from '../pages/Home'
-import Blog from '../pages/Blog'
-import ListingBlog from '../pages/ListingBlog'
-import Sidebar from '../pages/Aside'
-import SingleBlog from '../pages/SingleBlog'
-import Testimonials from '../pages/Testimonials'
-import SingleTestimonial from '../pages/SingleTestimonial'
-import Contact from '../pages/Contact'
+import NotFound from '../views/404'
+//front
+import Home from '../views/Home'
+import Blog from '../views/Blog'
+import ListingBlog from '../views/ListingBlog'
+import Sidebar from '../views/Aside'
+import SingleBlog from '../views/SingleBlog'
+import Testimonials from '../views/Testimonials'
+import SingleTestimonial from '../views/SingleTestimonial'
+import Contact from '../views/Contact'
+
 import Login from '../components/Login'
 import SignUp from '../components/SignUp'
-import Dashboard from '../components/Dashboard'
-import Profile from '../components/Profile'
-import UserMenu from '../components/UserMenu'
-import AdminBlogPosts from '../components/AdminBlogPosts'
-import AddPost from '../components/AddPost'
-import EditPost from '../components/EditPost'
-import Pages from '../components/Pages'
-import Settings from '../components/Settings'
-import SEO from '../components/SEO'
-
+//admin
+import Dashboard from '../views/admin/Dashboard'
+import Profile from '../views/admin/Profile'
+import AdminBlogPosts from '../views/admin/AdminBlogPosts'
+import AddPost from '../views/admin/AddPost'
+import EditPost from '../views/admin/EditPost'
+import Pages from '../views/admin/Pages'
+import Settings from '../views/admin/Settings'
+import SEO from '../views/admin/SEO'
+//admin componenets
+//import AdminMenu from '../components/admin/Menu'
 export const routes = [
     {
         path: '',
@@ -77,27 +80,27 @@ export const routes = [
         component: SignUp
     }, {
         name: 'Dashboard',
-        path: '/dashboard/',
+        path: '/admin/',
         components: {
            default: Dashboard,
-           userMenu: UserMenu,
+           //userMenu: AdminMenu,
         },
         children: [
         {
-            path: '/dashboard/profile',
+            path: '/admin/profile',
              components: {
                 default: Profile,
-                userMenu: UserMenu
+                //userMenu: AdminMenu
             },
             meta: {
                 requiresAuth: true
             }        
         },
         {
-            path: '/dashboard/articles',
+            path: '/admin/articles',
             name: 'admin-posts',
             components: {
-                userMenu: UserMenu,
+                //userMenu: AdminMenu,
                 default: AdminBlogPosts,
             },
             meta: {
@@ -107,10 +110,10 @@ export const routes = [
             }
         },
         // {
-        //     path: '/dashboard/AddPost',
+        //     path: '/admin/AddPost',
         //     name: 'AddPost',
         //     components: {
-        //         userMenu: UserMenu,
+        //         //userMenu: AdminMenu,
         //         default: AddPost,
         //     },
         //     meta: {
@@ -118,10 +121,10 @@ export const routes = [
         //     }
         // },
         {
-            path: '/dashboard/AddPost',
+            path: '/admin/AddPost',
             name: 'AddPost',
             components: {
-                userMenu: UserMenu,
+                //userMenu: AdminMenu,
                 default: EditPost,
             },
             meta: {
@@ -129,10 +132,10 @@ export const routes = [
             }
         },
           {
-            path: '/dashboard/:type/:id',
+            path: '/admin/:type/:id',
             name: 'EditPost',
             components: {
-                userMenu: UserMenu,
+                //userMenu: AdminMenu,
                 default: EditPost,
             },
             meta: {
@@ -140,14 +143,14 @@ export const routes = [
             }
         },
         {
-            path: '/dashboard/pages',
+            path: '/admin/pages',
             params: {
                 postType: 'pages',
                 
             },
             name: 'admin-pages',
             components: {
-                userMenu: UserMenu,
+                //userMenu: AdminMenu,
                 default: Pages,
             },
             meta: {
@@ -157,10 +160,10 @@ export const routes = [
             }
         },
         {
-            path: '/dashboard/settings/',
+            path: '/admin/settings/',
             name: 'Settings',
             components: {
-                userMenu: UserMenu,
+                //userMenu: AdminMenu,
                 default: Settings,
             },
             meta: {
@@ -168,10 +171,10 @@ export const routes = [
             }
         },
         {
-            path: '/dashboard/settings/seo',
+            path: '/admin/settings/seo',
             name: 'SEO',
             components: {
-                userMenu: UserMenu,
+                //userMenu: AdminMenu,
                 default: SEO,
             },
             meta: {

@@ -4,11 +4,11 @@
      <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <router-link to="/" class="navbar-item not-affect"><img src="@/assets/logo.svg" width="32" alt="Alexander Georgiev" /></router-link>
-        <button class="button navbar-burger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
       <div class="navbar-menu" id="navbarNav">    
         <div class="navbar-end">
@@ -31,7 +31,10 @@
             <router-link v-if="!$root.user" to="/login" class="navbar-item">Login</router-link>
             <router-link v-if="!$root.user" to="/signup" class="navbar-item">Sign Up</router-link>
              
-            <div class="dropdown is-right  is-hoverable navbar-item" v-if="$root.user">
+           
+        </div>
+      </div>
+       <div class="dropdown is-right  is-hoverable navbar-item" v-if="$root.user">
               <div class="dropdown-trigger">
                 <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
                   <span><i class="far fa-user-circle"></i></span>
@@ -43,16 +46,14 @@
               <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                 <div class="dropdown-content">
                   <div class="dropdown-item">
-                    <router-link v-if="$root.user" to="/dashboard" class="navbar-item">Dashboard</router-link>
-                    <router-link v-if="$root.user" to="/dashboard/profile" class="navbar-item">Profile</router-link>
-                    <router-link v-if="$root.user" to="/dashboard/posts" class="navbar-item">Posts</router-link>
+                    <router-link v-if="$root.user" to="/admin" class="navbar-item">Dashboard</router-link>
+                    <router-link v-if="$root.user" to="/admin/profile" class="navbar-item">Profile</router-link>
+                    <router-link v-if="$root.user" to="/admin/posts" class="navbar-item">Posts</router-link>
                     <button v-if="$root.user" class="navbar-item button is-primary is-fullwidth" v-on:click="logout">Logout</button>             
                   </div>
                 </div>
               </div>
             </div>    
-        </div>
-      </div>
       </nav>
     </div>
   </header>   
@@ -62,6 +63,7 @@
   
   import firebase from 'firebase'
   import VueRouter from 'vue-router'
+  import { toggle_menu } from './../assets/theme'
   export default {
     name: 'MainLayout',
     components: {
@@ -72,12 +74,8 @@
         
       }
     },
-  // computed: {
-  //   user() {
-  //     return this.$store.getters.getUser;
-  //   }
-  // },
-  methods: {
+  
+    methods: {
       setUser: function() {
         this.$store.dispatch('setUser');
       },
@@ -89,9 +87,12 @@
         })
       }
     },
-      created() {
-    this.setUser();
-  },
+    created() {
+      this.setUser();
+    },
+    mounted() {
+      toggle_menu()
+    }
   }
 </script>
 

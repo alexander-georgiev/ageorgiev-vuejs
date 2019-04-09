@@ -6,6 +6,7 @@ import VueRouter from 'vue-router'
 import Meta from 'vue-meta'
 import { routes } from './router/routes';
 import App from './App.vue'
+import alex_alert from './components/a-alert.js'
 
 Vue.use(Vuex)
 require('firebase/firestore')
@@ -21,20 +22,12 @@ var firebaseApp = firebase.initializeApp({
 })
 export const firestore = firebaseApp.firestore();
 const settings = {
-    timestampsInSnapshots: true
+
 };
 firestore.settings(settings)
 Vue.config.productionTip = false
 Vue.use(VueRouter); // This makes all the magic hapen and Vue recognizes the router-view and router-link
 Vue.use(Meta)
-
-import Testimonials from './pages/Testimonials'
-
-routes.push({
-        path: '/testimonials',
-        name: 'testimonials',
-        component: Testimonials
-    });
 
 const router = new VueRouter({
     mode: 'history',
@@ -86,17 +79,20 @@ export const store = new Vuex.Store({
     el: '#app',
     store,
     router: router,
-    data: { loading: false, user: null },
-    created() {
+    data: { loading: true, user: null },
+    beforeCreate() {
+    
     var self = this;        
        firebase.auth().onAuthStateChanged((user) => {
       if(user) {
-        self.user = user
+        self.user = user;
+
       } else {
         this.$router.push('/login')
       }
+      self.loading = false;
      });
- 
+    
     },
     render: h => h(App)
   });
@@ -115,7 +111,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from) => {     
-setTimeout(function(){ app.loading = false }, 300);
+setTimeout(function(){ app.loading = false }, 500);
 
 })
 
